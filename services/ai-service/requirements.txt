@@ -1,0 +1,12 @@
+fastapi[all]
+pydantic
+pydantic-settings
+uvicorn
+torch
+torchvision
+scikit-learn
+Pillow
+joblib
+numpy
+pandas
+python-multipart
