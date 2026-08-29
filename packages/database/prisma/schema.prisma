@@ -1,0 +1,210 @@
+// packages/database/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  phone        String?       @unique
+  email        String?       @unique
+  passwordHash String?
+  role         String        @default("CONSUMER")
+  languagePref String        @default("en")
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  beekeeper    Beekeeper?
+  batchEvents  BatchEvent[]
+  qualityTests QualityTest[] @relation("InspectorTests")
+}
+
+model Beekeeper {
+  id               String       @id @default(cuid())
+  userId           String       @unique
+  user             User         @relation(fields: [userId], references: [id])
+  region           String
+  kvicEnrollmentId String?
+  apiaries         Apiary[]
+  batches          HoneyBatch[]
+  createdAt        DateTime     @default(now())
+}
+
+model Apiary {
+  id          String       @id @default(cuid())
+  beekeeperId String
+  beekeeper   Beekeeper    @relation(fields: [beekeeperId], references: [id])
+  name        String
+  latitude    Float
+  longitude   Float
+  hives       Hive[]
+  batches     HoneyBatch[]
+  createdAt   DateTime     @default(now())
+}
+
+model Hive {
+  id                String                   @id @default(cuid())
+  apiaryId          String
+  apiary            Apiary                   @relation(fields: [apiaryId], references: [id])
+  hiveType          String                   @default("Langstroth")
+  species           String                   @default("Apis cerana indica")
+  installDate       DateTime
+  status            String                   @default("ACTIVE")
+  sensors           Sensor[]
+  healthRecords     HiveHealthRecord[]
+  diseaseDetections DiseaseDetection[]
+  alerts            Alert[]
+  predictions       ProductivityPrediction[]
+  createdAt         DateTime                 @default(now())
+}
+
+model Sensor {
+  id         String          @id @default(cuid())
+  hiveId     String
+  hive       Hive            @relation(fields: [hiveId], references: [id])
+  sensorType String
+  deviceId   String          @unique
+  isActive   Boolean         @default(true)
+  lastSeenAt DateTime        @default(now())
+  readings   SensorReading[]
+}
+
+model SensorReading {
+  id        String   @id @default(cuid())
+  sensorId  String
+  sensor    Sensor   @relation(fields: [sensorId], references: [id])
+  timestamp DateTime
+  value     Float
+  unit      String
+
+  @@index([sensorId, timestamp])
+}
+
+model HiveHealthRecord {
+  id              String   @id @default(cuid())
+  hiveId          String
+  hive            Hive     @relation(fields: [hiveId], references: [id])
+  score           Int
+  status          String
+  componentScores String   @default("{}")
+  computedAt      DateTime @default(now())
+
+  @@index([hiveId, computedAt])
+}
+
+model DiseaseDetection {
+  id             String   @id @default(cuid())
+  hiveId         String
+  hive           Hive     @relation(fields: [hiveId], references: [id])
+  imageUrl       String
+  category       String
+  confidence     Float
+  severity       String
+  recommendation String
+  createdAt      DateTime @default(now())
+}
+
+model ProductivityPrediction {
+  id               String   @id @default(cuid())
+  hiveId           String
+  hive             Hive     @relation(fields: [hiveId], references: [id])
+  predictedYieldKg Float
+  confidencePct    Int
+  rangeLow         Float
+  rangeHigh        Float
+  generatedAt      DateTime @default(now())
+}
+
+model Alert {
+  id         String    @id @default(cuid())
+  hiveId     String
+  hive       Hive      @relation(fields: [hiveId], references: [id])
+  alertType  String
+  severity   String
+  message    String
+  isRead     Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+
+  @@index([hiveId, createdAt])
+}
+
+model HoneyBatch {
+  id                  String        @id @default(cuid())
+  beekeeperId         String
+  beekeeper           Beekeeper     @relation(fields: [beekeeperId], references: [id])
+  apiaryId            String
+  apiary              Apiary        @relation(fields: [apiaryId], references: [id])
+  hiveIds             String        @default("[]")
+  harvestDate         DateTime
+  honeyType           String
+  estimatedQuantityKg Float
+  status              String        @default("CREATED")
+  events              BatchEvent[]
+  qualityTests        QualityTest[]
+  package             Package?
+  createdAt           DateTime      @default(now())
+}
+
+model BatchEvent {
+  id               String            @id @default(cuid())
+  batchId          String
+  batch            HoneyBatch        @relation(fields: [batchId], references: [id])
+  eventType        String
+  actorUserId      String
+  actor            User              @relation(fields: [actorUserId], references: [id])
+  timestamp        DateTime          @default(now())
+  notes            String?
+  offChainData     String?
+  blockchainRecord BlockchainRecord?
+
+  @@index([batchId, timestamp])
+}
+
+model QualityTest {
+  id          String   @id @default(cuid())
+  batchId     String
+  batch       HoneyBatch @relation(fields: [batchId], references: [id])
+  inspectorId String
+  inspector   User     @relation("InspectorTests", fields: [inspectorId], references: [id])
+  moisturePct Float?
+  purityNotes String?
+  result      String   @default("PENDING")
+  testedAt    DateTime @default(now())
+}
+
+model Package {
+  id         String     @id @default(cuid())
+  batchId    String     @unique
+  batch      HoneyBatch @relation(fields: [batchId], references: [id])
+  packagedAt DateTime   @default(now())
+  quantity   Float
+  unit       String     @default("kg")
+  qrCode     QRCode?
+}
+
+model QRCode {
+  id          String   @id @default(cuid())
+  packageId   String   @unique
+  package     Package  @relation(fields: [packageId], references: [id])
+  signedToken String   @unique
+  batchUrl    String
+  createdAt   DateTime @default(now())
+  scanCount   Int      @default(0)
+}
+
+model BlockchainRecord {
+  id            String     @id @default(cuid())
+  eventId       String     @unique
+  event         BatchEvent @relation(fields: [eventId], references: [id])
+  txHash        String
+  chain         String     @default("polygon-amoy")
+  blockNumber   Int
+  hashOfPayload String
+  createdAt     DateTime   @default(now())
+}

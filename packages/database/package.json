@@ -1,0 +1,21 @@
+{
+  "name": "@honey-chain/database",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "npx prisma generate",
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate dev",
+    "seed": "npx ts-node seed.ts",
+    "studio": "npx prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "prisma": "^5.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
