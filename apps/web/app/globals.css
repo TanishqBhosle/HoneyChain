@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 48 30% 98%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 48 96% 89%;
+    --secondary: 48 20% 95%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 38 85% 94%;
+    --accent-foreground: 28 80% 25%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 40 20% 90%;
+    --input: 40 20% 90%;
+    --ring: 38 92% 50%;
+    --radius: 0.75rem;
+
+    /* Extended Honey Palette */
+    --honey-amber: #f59e0b;
+    --honey-dark: #b45309;
+    --honey-cream: #fdfaf3;
+    --honey-glow: rgba(245, 158, 11, 0.15);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-manrope), sans-serif;
+  letter-spacing: -0.025em;
+}
+
+body {
+  background-color: #fbf9f4;
+  color: #0f172a;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.12);
+}
+
+.glass-panel-dark {
+  background: rgba(18, 20, 26, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 30px -10px rgba(217, 119, 6, 0.12), 0 0 0 1px rgba(245, 158, 11, 0.25);
+}
+
+.honey-gradient-text {
+  background: linear-gradient(135deg, #b45309 0%, #d97706 40%, #f59e0b 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.honey-glow-bg {
+  background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.14) 0%, rgba(254, 243, 199, 0.05) 60%, transparent 100%);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ede3;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4b886;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b59253;
+}
+
