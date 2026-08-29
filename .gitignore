@@ -1,0 +1,76 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+.next/
+dist/
+out/
+build/
+
+# Turbo
+.turbo/
+
+# Environment
+.env
+.env.*
+.env.local
+.env.*.local
+*.env
+*.env.*
+!.env.example
+!.env.*.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+
+# Hardhat / Blockchain
+artifacts/
+cache/
+typechain-types/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# AI Model Weights (too large for git)
+services/ai-service/weights/*.pth
+services/ai-service/weights/*.joblib
+!services/ai-service/weights/.gitkeep
+
+# SQLite / Local DB
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Uploads
+uploads/
+
+# Docker
+docker-compose.override.yml
+
+# PWA generated
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map

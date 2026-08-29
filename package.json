@@ -1,0 +1,27 @@
+{
+  "name": "honey-chain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Honey Chain — From Hive to Home, Every Drop Has a Story",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:generate": "pnpm --filter @honey-chain/database run generate",
+    "db:migrate": "pnpm --filter @honey-chain/database run migrate",
+    "db:seed": "pnpm --filter @honey-chain/database run seed",
+    "db:studio": "pnpm --filter @honey-chain/database run studio",
+    "contract:compile": "pnpm --filter @honey-chain/contracts compile",
+    "contract:test": "pnpm --filter @honey-chain/contracts test",
+    "contract:deploy": "pnpm --filter @honey-chain/contracts deploy"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "turbo": "^2.1.0"
+  },
+  "packageManager": "pnpm@9.7.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
