@@ -13,7 +13,8 @@
 
 **An Enterprise-Grade, Blockchain-Verified Honey Supply Chain & IoT Hive Intelligence Platform**
 
-[Key Features](#-key-features) • [System Architecture](#-system-architecture) • [Smart Contracts](#-smart-contract-architecture) • [Quick Start](#-quick-start) • [Demo Walkthrough](#-demo-walkthrough) • [Project Structure](#-project-structure)
+[Key Features](#-key-features) • [System Architecture](#-system-architecture) • [Smart Contracts](#-smart-contract-architecture) • [Quick Start](#-quick-start) • [Demo Walkthrough](#-demo-walkthrough) • [Project Structure](#-project-structure) 
+Deployed link - https://honey-chain-web-dvhb.vercel.app/
 
 </div>
 
