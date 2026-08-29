@@ -56,13 +56,13 @@ export function Scene1Hero({ progress }: Scene1HeroProps) {
             <span>Get Started</span>
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
-          <a
-            href="#journey"
+          <Link
+            href="/verify"
             className="inline-flex items-center justify-center px-6 py-3.5 text-sm font-bold text-slate-700 bg-white/95 hover:bg-white border border-amber-200/90 hover:border-amber-300 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] backdrop-blur-sm"
           >
             <Compass className="mr-2 w-4 h-4 text-amber-600" />
-            <span>Explore the Journey</span>
-          </a>
+            <span>Explore & Verify Honey</span>
+          </Link>
         </div>
       </div>
     </SceneContainer>

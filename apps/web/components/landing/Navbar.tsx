@@ -27,8 +27,8 @@ export function Navbar() {
   const navLinks = [
     { name: 'Platform', href: '#platform' },
     { name: 'How It Works', href: '#journey' },
-    { name: 'Technology', href: '#technology' },
     { name: 'Traceability', href: '#traceability' },
+    { name: 'Verify Honey', href: '/verify' },
     { name: 'Impact', href: '#impact' },
   ];
 

@@ -37,13 +37,13 @@ export function CTASection() {
                 <span>Get Started Now</span>
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <a
-                href="#platform"
+              <Link
+                href="/verify"
                 className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-800 bg-white/90 hover:bg-white border border-amber-200/80 hover:border-amber-300 rounded-2xl shadow-md transition-all active:scale-[0.98]"
               >
                 <Compass className="mr-2 w-5 h-5 text-amber-600" />
-                <span>Explore Platform</span>
-              </a>
+                <span>Verify Honey Batch</span>
+              </Link>
             </div>
 
             <div className="mt-10 pt-8 border-t border-amber-100 flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-slate-500">

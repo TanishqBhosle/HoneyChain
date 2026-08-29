@@ -210,6 +210,26 @@ export class BatchesService {
       data: { status: 'PACKAGED' },
     });
 
+    // Ensure PACKAGED batch event exists and is anchored
+    const existingPackaged = await this.prisma.batchEvent.findFirst({
+      where: { batchId, eventType: 'PACKAGED' },
+    });
+    if (!existingPackaged) {
+      const defaultProcessor = await this.prisma.user.findFirst({ where: { role: 'PROCESSOR' } });
+      const actorUserId = dto?.userId || defaultProcessor?.id || (await this.prisma.user.findFirst())?.id;
+      if (actorUserId) {
+        const event = await this.prisma.batchEvent.create({
+          data: {
+            batch: { connect: { id: batchId } },
+            eventType: 'PACKAGED',
+            actor: { connect: { id: actorUserId } },
+            notes: `Micro-filtered and bottled into ${quantity} ${unit} jars with tamper-evident QR code`,
+          },
+        });
+        await this.blockchainService.recordEvent(event.id, { packageId: pack.id, signedToken });
+      }
+    }
+
     return this.findOne(batchId);
   }
 

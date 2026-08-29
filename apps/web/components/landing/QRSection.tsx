@@ -31,7 +31,7 @@ export function QRSection() {
     setScanState('idle');
   };
 
-  const sampleToken = 'hc-coorg-2026-001';
+  const sampleToken = 'BATCH-2026-001';
 
   return (
     <section id="qr" className="py-24 md:py-32 relative overflow-hidden bg-cream-50/90 border-b border-amber-200/50">

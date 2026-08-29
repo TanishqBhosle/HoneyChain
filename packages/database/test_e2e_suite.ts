@@ -88,7 +88,7 @@ async function runAuditSuite() {
   // ------------------------------------------------------------
   try {
     // Attack 1: Beekeeper attempts to package a batch (only PROCESSOR or ADMIN allowed)
-    const attack1 = await request(`${API_BASE}/batches/batch_1/package`, {
+    const attack1 = await request(`${API_BASE}/batches/BATCH-2026-001/package`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${beekeeperToken}` },
       body: JSON.stringify({ quantity: 50 }),
@@ -96,7 +96,7 @@ async function runAuditSuite() {
     assert('HC-RBAC-001', 'RBAC', 'Beekeeper package attempt rejected with 403 Forbidden', attack1.status === 403);
 
     // Attack 2: Beekeeper attempts to submit Quality Test (only QUALITY_INSPECTOR or ADMIN allowed)
-    const attack2 = await request(`${API_BASE}/batches/batch_1/quality-test`, {
+    const attack2 = await request(`${API_BASE}/batches/BATCH-2026-001/quality-test`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${beekeeperToken}` },
       body: JSON.stringify({ moisturePct: 18.0, result: 'APPROVED' }),
@@ -104,7 +104,7 @@ async function runAuditSuite() {
     assert('HC-RBAC-002', 'RBAC', 'Beekeeper quality test attempt rejected with 403 Forbidden', attack2.status === 403);
 
     // Attack 3: Processor attempts to transition status to APPROVED (only QUALITY_INSPECTOR allowed)
-    const attack3 = await request(`${API_BASE}/batches/batch_1/status`, {
+    const attack3 = await request(`${API_BASE}/batches/BATCH-2026-001/status`, {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${processorToken}` },
       body: JSON.stringify({ status: 'APPROVED' }),
